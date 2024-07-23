@@ -10,8 +10,8 @@ from youtube_transcript_api import YouTubeTranscriptApi
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 
-prompt="""You are Yotube video summarizer. You will be taking the transcript text
-and summarizing the entire video and providing the important summary in points
+prompt="""You are Yotube video summarizer. You will be taking the transcript text and if it is not in english translate it to 
+english and summarizing the entire video and providing the important summary in points
 within 250 words. Please provide the summary of the text given here:  """
 
 ## getting the transcript data from yt videos
@@ -19,7 +19,7 @@ def extract_transcript_details(youtube_video_url):
     try:
         video_id=youtube_video_url.split("=")[1]
         
-        transcript_text=YouTubeTranscriptApi.get_transcript(video_id)
+        transcript_text=YouTubeTranscriptApi.get_transcript(video_id, languages=('en', 'hi'))
 
         transcript = ""
         for i in transcript_text:
